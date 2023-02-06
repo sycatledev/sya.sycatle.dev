@@ -2,9 +2,11 @@
 session_start();
 $results = array();
 
-if (isset($_GET['identifier']) && isset($_GET['password'])) {
-    $identifier = $_GET['identifier'];
-    $password = $_GET['password'];
+$data = json_decode(file_get_contents('php://input'), true);
+
+if (isset($data["identifier"]) && isset($data['password'])) {
+    $identifier = $data['identifier'];
+    $password = $data['password'];
 
     try {
         $database = new PDO("mysql:host=127.0.0.1;dbname=projectmarket;charset=utf8", "root", "root");

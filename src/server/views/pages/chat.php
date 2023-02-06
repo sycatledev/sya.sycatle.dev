@@ -1,6 +1,8 @@
 <?php ob_start(); ?>
 
-<div id="results"></div>
+<div id="results" class="px-1 flex flex-col space-y-2"></div>
+
+<!-- <button class="bottom-button fixed bottom-16 right-0 p-2">bottom</button> -->
 
 <nav id="buttons" class="fixed bottom-0 font-semibold py-2 lg:py-4 text-black backdrop-blur-lg bg-zinc-50/70 dark:bg-zinc-900/70 dark:text-white w-full translate-y-full opacity-0 duration-300">
     <div class="main-carousel p-2 max-w-7xl w-full" data-flickity='{ "prevNextButtons": false, "pageDots": false, "cellAlign": "left", "contain": true, "freeScroll": true }'>
@@ -15,12 +17,3 @@
 </nav>
 
 <?php $content = ob_get_clean(); require("./src/server/views/template.php") ?>
-
-<!--
-░██████╗██╗░░░██╗░█████╗░░█████╗░████████╗██╗░░░░░███████╗░░░██████╗░███████╗██╗░░░██╗
-██╔════╝╚██╗░██╔╝██╔══██╗██╔══██╗╚══██╔══╝██║░░░░░██╔════╝░░░██╔══██╗██╔════╝██║░░░██║
-╚█████╗░░╚████╔╝░██║░░╚═╝███████║░░░██║░░░██║░░░░░█████╗░░░░░██║░░██║█████╗░░╚██╗░██╔╝
-░╚═══██╗░░╚██╔╝░░██║░░██╗██╔══██║░░░██║░░░██║░░░░░██╔══╝░░░░░██║░░██║██╔══╝░░░╚████╔╝░
-██████╔╝░░░██║░░░╚█████╔╝██║░░██║░░░██║░░░███████╗███████╗██╗██████╔╝███████╗░░╚██╔╝░░
-╚═════╝░░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░╚══════╝╚══════╝╚═╝╚═════╝░╚══════╝░░░╚═╝░░░
- -->

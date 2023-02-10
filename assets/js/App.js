@@ -53,7 +53,7 @@ function init(){
   } else {
     setTimeout(() => {
       resultsBox.innerHTML = "";
-      // writeMessage(resultsContainer, `Bonjour, ${username}. 👋🏻 Comment puis-je vous aider aujourd'hui?`, ["font-bold", "text-xl", "lg:text-2xl"], false);
+      writeMessage(resultsBox, `Bonjour, ${username}. 👋🏻 Comment puis-je vous aider aujourd'hui?`, ["font-bold", "text-xl", "lg:text-2xl"], false);
 
       setTimeout(() => {
         buttonsContainer.classList.remove("opacity-0");
@@ -132,51 +132,51 @@ async function sendAnswer(node, action) {
   document.body.scrollIntoView(false);
 }
 
-// function writeMessage(node, message, classes = [], background=true) {
-//   // Create the main message container
-//   let messageContainer = document.createElement('p');
-//   messageContainer.classList.add("group", "flex", "relative", "items-center", "space-x-2", "p-2", "rounded") // Attributes default classes
-//   for (let classe in classes) { // Attributes specified classes
-//     messageContainer.classList.add(classes[classe]);
-//   }
-//   if (background) messageContainer.classList.add("bg-zinc-100", "dark:bg-zinc-800");
+async function writeMessage(node, message, classes = [], background=true) {
+  // Create the main message container
+  let messageContainer = document.createElement('p');
+  messageContainer.classList.add("group", "flex", "relative", "items-center", "space-x-2", "p-2", "rounded") // Attributes default classes
+  for (let classe in classes) { // Attributes specified classes
+    messageContainer.classList.add(classes[classe]);
+  }
+  if (background) messageContainer.classList.add("bg-zinc-100", "dark:bg-zinc-800");
 
-//   // Create sender
-//   let sender = document.createElement('div');
-//   sender.classList.add("flex", "items-center", "space-x-2");
-//   let senderAvatar = document.createElement('img');
-//   senderAvatar.src = "./assets/img/sya_logo.jpg";
-//   senderAvatar.classList.add("flex", "flex-col", "h-8", "w-8", "lg:h-10", "lg:w-10", "rounded-full", "mb-auto", "duration-200", "group-hover:shadow-lg");
-//   sender.appendChild(senderAvatar);
+  // Create sender
+  let sender = document.createElement('div');
+  sender.classList.add("flex", "items-center", "space-x-2");
+  let senderAvatar = document.createElement('img');
+  senderAvatar.src = "./assets/img/sya_logo.jpg";
+  senderAvatar.classList.add("flex", "flex-col", "h-8", "w-8", "lg:h-10", "lg:w-10", "rounded-full", "mb-auto", "duration-200", "group-hover:shadow-lg");
+  sender.appendChild(senderAvatar);
 
-//   // Create response container
-//   let messageParagraph = document.createElement('div');
-//   messageParagraph.innerText = "";
+  // Create response container
+  let messageParagraph = document.createElement('div');
+  messageParagraph.innerText = "";
 
-//   // Create date container
-//   let dateContainer = document.createElement('div');
-//   dateContainer.classList.add("hidden", "absolute", "right-0", "top-0", "text-sm", "p-1", "lg:group-hover:flex", "lg:group-hover:", "font-thin", "text-gray-400")
-//   dateContainer.innerText = new Date().toLocaleTimeString();
+  // Create date container
+  let dateContainer = document.createElement('div');
+  dateContainer.classList.add("hidden", "absolute", "right-0", "top-0", "text-sm", "p-1", "lg:group-hover:flex", "lg:group-hover:", "font-thin", "text-gray-400")
+  dateContainer.innerText = new Date().toLocaleTimeString();
 
-//   // Move the message div to the chat container
-//   node.appendChild(messageContainer);
-//   messageContainer.appendChild(sender);
-//   messageContainer.appendChild(messageParagraph);
-//   messageContainer.appendChild(dateContainer);
+  // Move the message div to the chat container
+  node.appendChild(messageContainer);
+  messageContainer.appendChild(sender);
+  messageContainer.appendChild(messageParagraph);
+  messageContainer.appendChild(dateContainer);
 
-//   // Creating 
-//   messageParagraph.innerText = "";
+  // Creating 
+  messageParagraph.innerText = "";
   
-//   // Get the custom text input value
-//   Utils.typeMessage(message, messageParagraph);
+  // Get the custom text input value
+  await Utils.typeMessage(messageParagraph, message);
 
-//   // Go the the bottom of the page
-//   document.body.scrollIntoView(false);
-// }
+  // Go the the bottom of the page
+  document.body.scrollIntoView(false);
+}
 
 
 function logout() {
-  fetch("./src/api/logout.php")
+  fetch("http://localhost/Sya-Project/Sya-Backend/src/api/logout.php")
   .then(response => response.json())
   .then(data => {
     if (data.status == 200) {
@@ -225,7 +225,7 @@ async function fetchQuotes() {
 }
 
 async function login(identifier, password) {
-  fetch("./src/api/login.php", {
+  fetch("http://localhost/Sya-Project/Sya-Backend/src/api/login.php", {
       method: "POST",
       headers: {
       'Accept': 'application/json',
@@ -256,7 +256,7 @@ function fetchLoginForm() {
   toggleModal();
 
   setTimeout(() => {
-    fetch('./src/server/views/connect.php')
+    fetch('http://localhost/Sya-Project/Sya-Backend/src/server/views/connect.php')
     .then(response => response.text())
     .then(html => {
       modal.innerHTML = html;

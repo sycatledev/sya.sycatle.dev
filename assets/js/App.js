@@ -176,7 +176,7 @@ async function writeMessage(node, message, classes = [], background=true) {
 
 
 function logout() {
-  fetch("http://localhost/Sya-Project/Sya-Backend/src/api/logout.php")
+  fetch("http://localhost/SYA/Sya-Backend/src/api/logout.php")
   .then(response => response.json())
   .then(data => {
     if (data.status == 200) {
@@ -225,7 +225,7 @@ async function fetchQuotes() {
 }
 
 async function login(identifier, password) {
-  fetch("http://localhost/Sya-Project/Sya-Backend/src/api/login.php", {
+  fetch("http://localhost/SYA/Sya-Backend/src/api/login.php", {
       method: "POST",
       headers: {
       'Accept': 'application/json',
@@ -256,7 +256,7 @@ function fetchLoginForm() {
   toggleModal();
 
   setTimeout(() => {
-    fetch('http://localhost/Sya-Project/Sya-Backend/src/server/views/connect.php')
+    fetch('http://localhost/SYA/Sya-Backend/src/views/connect.php')
     .then(response => response.text())
     .then(html => {
       modal.innerHTML = html;

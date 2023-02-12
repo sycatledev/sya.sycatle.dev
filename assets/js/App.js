@@ -124,12 +124,12 @@ async function sendAnswer(node, action) {
   messageContainer.appendChild(messageParagraph);
   messageContainer.appendChild(dateContainer);
 
+  // Go the the bottom of the page
+  document.body.scrollIntoView(false);
+
   let result = await action();
   // Creating 
   await Utils.typeMessage(messageParagraph, result);
-
-  // Go the the bottom of the page
-  document.body.scrollIntoView(false);
 }
 
 async function writeMessage(node, message, classes = [], background=true) {
@@ -176,7 +176,7 @@ async function writeMessage(node, message, classes = [], background=true) {
 
 
 function logout() {
-  fetch("http://localhost/SYA/Sya-Backend/src/api/logout.php")
+  fetch("http://localhost/SYA/Sya-Backend/src/api/auth/logout.php")
   .then(response => response.json())
   .then(data => {
     if (data.status == 200) {
@@ -192,40 +192,52 @@ function logout() {
   });
 }
 
-async function fetchCrypto(fromSymbol = "BTC", toSymbol = "EUR") {
-  return fetch(`https://min-api.cryptocompare.com/data/price?fsym=${fromSymbol}&tsyms=${toSymbol}`)
+async function fetchCrypto(fromCurrency = "BTC", toCurrency = "EUR") {
+  return fetch(`http://localhost/SYA/SYA-Backend/src/api/modules/crypto.php?from=${fromCurrency}&to=${toCurrency}`)
   .then(response => response.json())
   .then(data => {
-    return `1${fromSymbol} vaut actuellement ${data[toSymbol]}${toSymbol}. 💸`
+    if (data.status == 200) {
+      return `1${fromCurrency} vaut actuellement ${data.response[toCurrency]}${toCurrency}. 💸`
+    }
+    
+    return `Une erreur est survenue lors de la requête. Merci de ré-essayer.`;
+    
+  })
+  .catch(error => {
+    console.log(error);
   });
 }
 
-async function fetchWeather() {
-  return fetch('https://api.weatherapi.com/v1/current.json?key=976b0a2104af409484a181816230202&q=Le%20Mans&aqi=no')
+async function fetchWeather(fromCity = "Le%20Mans") {
+  return fetch(`http://localhost/SYA/SYA-Backend/src/api/modules/meteo.php?city=${fromCity}`)
   .then(response => response.json())
   .then(data => {
-    let city = data.location.name;
-    let country = data.location.country;
-    let temperature = data.current.temp_c;
+    if (data.status == 200) {
+      let city = data.response.location.name;
+      let country = data.response.location.country;
+      let temperature = data.response.current.temp_c;
 
-    return `Il fait actuellement ${temperature}°C à ${city}, ${country}. 🌤️`;
+      return `Il fait actuellement ${temperature}°C à ${city}, ${country}. 🌤️`;
+    }
+    
+    return `Une erreur est survenue lors de la requête. Merci de ré-essayer.`;
+    
   });
 }
 
 async function fetchQuotes() {
-  return fetch('https://type.fit/api/quotes')
+  return fetch('http://localhost/SYA/SYA-Backend/src/api/modules/quotes.php')
   .then(response => response.json())
   .then(data => {
-    let randomQuote = data[Utils.getRandomInt(0, data.length)];
-    let text = randomQuote.text;
-    let author = `- ${randomQuote.author}`;
+    let text = data.response.quote_text;
+    let author = `- ${data.response.quote_author}`;
 
     return `\" ${text} \" ${author} 🤔`;
   });
 }
 
 async function login(identifier, password) {
-  fetch("http://localhost/SYA/Sya-Backend/src/api/login.php", {
+  fetch("http://localhost/SYA/Sya-Backend/src/api/auth/login.php", {
       method: "POST",
       headers: {
       'Accept': 'application/json',
@@ -256,7 +268,7 @@ function fetchLoginForm() {
   toggleModal();
 
   setTimeout(() => {
-    fetch('http://localhost/SYA/Sya-Backend/src/views/connect.php')
+    fetch('./connect.html')
     .then(response => response.text())
     .then(html => {
       modal.innerHTML = html;
@@ -289,7 +301,7 @@ function toggleModal() {
     modal.innerHTML = Utils.LOADING_ICON;
 
     modalContainer.classList.add('opacity-0');
-    modal.classList.add('opacity-0', '-translate-y-full');
+    modal.classList.add('opacity-0');
 
     setTimeout(() => {
       modalContainer.classList.add('hidden');

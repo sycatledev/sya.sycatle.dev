@@ -35,19 +35,21 @@ function App() {
 
         let message =
           "Une erreur est survenue lors de la requête. Merci de ré-essayer.";
+        let classes = ["text-red-500"];
         if (data.status == 200) {
           let city = data.response.location.name;
           let country = data.response.location.country;
           let temperature = data.response.current.temp_c;
 
           message = `Il fait actuellement ${temperature}°C à ${city}, ${country}. 🌤️`;
+          classes = [];
         }
 
         setMessages((messages) => {
           return [
             {
               content: message,
-              classes: [],
+              classes: classes,
               background: true,
               isQuestion: false,
             },
@@ -73,18 +75,20 @@ function App() {
 
         let message =
           "Une erreur est survenue lors de la requête. Merci de ré-essayer.";
+        let classes = ["text-red-500"];
         if (data.status == 200) {
           let text = data.response.quote_text;
           let author = `- ${data.response.quote_author}`;
 
           message = `\" ${text} \" ${author} 🤔`;
+          classes = [];
         }
 
         setMessages((messages) => {
           return [
             {
               content: message,
-              classes: [],
+              classes: classes,
               background: true,
               isQuestion: false,
             },
@@ -112,15 +116,17 @@ function App() {
 
         let message =
           "Une erreur est survenue lors de la requête. Merci de ré-essayer.";
+        let classes = ["text-red-500"];
         if (data.status == 200) {
           message = `1${fromCurrency} vaut actuellement ${data.response[toCurrency]}${toCurrency}. 💸`;
+          classes = [];
         }
 
         setMessages((messages) => {
           return [
             {
               content: message,
-              classes: [],
+              classes: classes,
               background: true,
               isQuestion: false,
             },

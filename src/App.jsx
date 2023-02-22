@@ -149,18 +149,20 @@ function App() {
         if (error) throw error;
 
         const data = JSON.parse(res.text);
-        setUsername("");
-        setPassword("");
-        setIsLogin(true);
+        if (data.status == 200) {
+          setUsername("");
+          setPassword("");
+          setIsLogin(true);
 
-        setMessages([
-          {
-            content: `Bonjour, ${data.user.username}. 👋🏻 Comment puis-je vous aider aujourd'hui?`,
-            classes: ["font-bold", "text-xl", "lg:text-2xl"],
-            background: false,
-            isQuestion: false,
-          },
-        ]);
+          setMessages([
+            {
+              content: `Bonjour, ${data.user.username}. 👋🏻 Comment puis-je vous aider aujourd'hui?`,
+              classes: ["font-bold", "text-xl", "lg:text-2xl"],
+              background: false,
+              isQuestion: false,
+            },
+          ]);
+        }
       });
   };
 

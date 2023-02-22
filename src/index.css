@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply scroll-smooth bg-zinc-50 text-black dark:bg-zinc-900 dark:text-white duration-300 min-h-screen;
+}

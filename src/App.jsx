@@ -13,39 +13,46 @@ function App() {
     localStorage.theme === "light" ? false : true
   );
 
+  // Change of theme
   const toggleTheme = () => {
-    const currentTheme = localStorage.theme === "light" ? "dark" : "light";
-    localStorage.theme = currentTheme;
+    const currentTheme = localStorage.theme === "light" ? "dark" : "light"; // The opposite of the current theme is selected
+    localStorage.theme = currentTheme; // We save the choice
 
-    document.documentElement.classList.add(currentTheme);
+    document.documentElement.classList.add(currentTheme); // The theme change is applied
     document.documentElement.classList.remove(
       localStorage.theme === "light" ? "dark" : "light"
-    );
+    ); // We delete the old theme
 
-    setIsBlackTheme(localStorage.theme === "light" ? false : true);
+    setIsBlackTheme(localStorage.theme === "light" ? false : true); // We change the icon of the theme
   };
 
+  // We get the weather
   const fetchWeather = (fromCity = "Le%20Mans") => {
-    superagent
+    superagent // We send a get request without arguments to the api
       .get(`http://localhost:8000/src/api/modules/meteo.php?city=${fromCity}`)
       .end(function (error, res) {
+        // We process the data received
         if (error) throw error;
 
-        const data = JSON.parse(res.text);
+        const data = JSON.parse(res.text); // The JSON data is converted into data that can be understood by Javascript
 
         let message =
-          "Une erreur est survenue lors de la requête. Merci de ré-essayer.";
-        let classes = ["text-red-500"];
+          "Une erreur est survenue lors de la requête. Merci de ré-essayer."; // We define the error message
+        let classes = ["text-red-500"]; // We define the classes of the text
         if (data.status == 200) {
-          let city = data.response.location.name;
-          let country = data.response.location.country;
-          let temperature = data.response.current.temp_c;
+          // If the request has worked then
 
-          message = `Il fait actuellement ${temperature}°C à ${city}, ${country}. 🌤️`;
-          classes = [];
+          let city = data.response.location.name; // We get the city back
+          let country = data.response.location.country; // We recover the region
+          let temperature = data.response.current.temp_c; // We recover the temperature
+
+          message = `Il fait actuellement ${temperature}°C à ${city}, ${country}. 🌤️`; // Sya's response is defined
+          classes = []; // We make the classes table empty because no modification of the classes is to be done
         }
 
         setMessages((messages) => {
+          // We send the message, either an error or the data
+
           return [
             {
               content: message,
@@ -65,26 +72,32 @@ function App() {
       });
   };
 
+  // We get a quote
   const fetchQuotes = () => {
-    superagent
+    superagent // We send a get request without arguments to the api
       .get("http://localhost:8000/src/api/modules/quotes.php")
       .end(function (error, res) {
+        // We process the data received
         if (error) throw error;
 
-        const data = JSON.parse(res.text);
+        const data = JSON.parse(res.text); // The JSON data is converted into data that can be understood by Javascript
 
         let message =
-          "Une erreur est survenue lors de la requête. Merci de ré-essayer.";
-        let classes = ["text-red-500"];
+          "Une erreur est survenue lors de la requête. Merci de ré-essayer."; // We define the error message
+        let classes = ["text-red-500"]; // We define the classes of the text
         if (data.status == 200) {
-          let text = data.response.quote_text;
-          let author = `- ${data.response.quote_author}`;
+          // If the request has worked then
 
-          message = `\" ${text} \" ${author} 🤔`;
-          classes = [];
+          let text = data.response.quote_text; // We retrieve the quote
+          let author = `- ${data.response.quote_author}`; // The author of the quote is retrieved
+
+          message = `\" ${text} \" ${author} 🤔`; // Sya's response is defined
+          classes = []; // We make the classes table empty because no modification of the classes is to be done
         }
 
         setMessages((messages) => {
+          // We send the message, either an error or the data
+
           return [
             {
               content: message,
@@ -104,25 +117,31 @@ function App() {
       });
   };
 
+  // Recovering information about a crypto-currency
   const fetchCryptos = (fromCurrency = "BTC", toCurrency = "EUR") => {
-    superagent
+    superagent // We send a get request without arguments to the api
       .get(
         `http://localhost:8000/src/api/modules/crypto.php?from=${fromCurrency}&to=${toCurrency}`
       )
       .end(function (error, res) {
+        // We process the data received
         if (error) throw error;
 
-        const data = JSON.parse(res.text);
+        const data = JSON.parse(res.text); // The JSON data is converted into data that can be understood by Javascript
 
         let message =
-          "Une erreur est survenue lors de la requête. Merci de ré-essayer.";
-        let classes = ["text-red-500"];
+          "Une erreur est survenue lors de la requête. Merci de ré-essayer."; // We define the error message
+        let classes = ["text-red-500"]; // We define the classes of the text
         if (data.status == 200) {
-          message = `1${fromCurrency} vaut actuellement ${data.response[toCurrency]}${toCurrency}. 💸`;
-          classes = [];
+          // If the request has worked then
+
+          message = `1${fromCurrency} vaut actuellement ${data.response[toCurrency]}${toCurrency}. 💸`; // Sya's response is defined
+          classes = []; // We make the classes table empty because no modification of the classes is to be done
         }
 
         setMessages((messages) => {
+          // We send the message, either an error or the data
+
           return [
             {
               content: message,
@@ -142,8 +161,9 @@ function App() {
       });
   };
 
+  // Login
   const login = () => {
-    superagent
+    superagent // We send a post request with two arguments (the email address and the password) to the api
       .post("http://localhost:8000/src/api/auth/login.php")
       .send(
         JSON.stringify({
@@ -152,16 +172,21 @@ function App() {
         })
       )
       .end(function (error, res) {
+        // We process the data received
+
         if (error) throw error;
 
-        const data = JSON.parse(res.text);
+        const data = JSON.parse(res.text); // The JSON data is converted into data that can be understood by Javascript
         if (data.status == 200) {
-          setUsername("");
-          setPassword("");
-          setIsLogin(true);
+          // If the request has worked then
+
+          setUsername(""); // Deletion of email address
+          setPassword(""); // Removing the password
+          setIsLogin(true); // Removal of the modal
 
           setMessages([
             {
+              // Sending the initialized message
               content: `Bonjour, ${data.user.username}. 👋🏻 Comment puis-je vous aider aujourd'hui?`,
               classes: ["font-bold", "text-xl", "lg:text-2xl"],
               background: false,
@@ -172,18 +197,24 @@ function App() {
       });
   };
 
+  // Logout
   const logout = () => {
-    superagent
+    superagent // We send a get request without arguments to the api
       .get("http://localhost:8000/src/api/auth/logout.php")
       .end(function (error, res) {
+        // We process the data received
+
         if (error) throw error;
 
-        const data = JSON.parse(res.text);
+        const data = JSON.parse(res.text); // The JSON data is converted into data that can be understood by Javascript
         if (data.status == 200) {
-          setIsLogin(false);
-          setMessages([]);
+          // If the request has worked then
+
+          setIsLogin(false); // Display of the modal
+          setMessages([]); // The message table is made empty
         } else {
           setMessages((messages) => {
+            // Sending an error message
             return [
               {
                 content:

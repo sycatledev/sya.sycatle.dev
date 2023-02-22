@@ -26,9 +26,9 @@ function App() {
   };
 
   const fetchWeather = (fromCity = "Le%20Mans") => {
-    superagent.get(
-      `http://localhost:8000/src/api/modules/meteo.php?city=${fromCity}`,
-      (error, res) => {
+    superagent
+      .get(`http://localhost:8000/src/api/modules/meteo.php?city=${fromCity}`)
+      .end(function (error, res) {
         if (error) throw error;
 
         const data = JSON.parse(res.text);
@@ -60,14 +60,13 @@ function App() {
             ...messages,
           ];
         });
-      }
-    );
+      });
   };
 
   const fetchQuotes = () => {
-    superagent.get(
-      "http://localhost:8000/src/api/modules/quotes.php",
-      (error, res) => {
+    superagent
+      .get("http://localhost:8000/src/api/modules/quotes.php")
+      .end(function (error, res) {
         if (error) throw error;
 
         const data = JSON.parse(res.text);
@@ -98,14 +97,15 @@ function App() {
             ...messages,
           ];
         });
-      }
-    );
+      });
   };
 
   const fetchCryptos = (fromCurrency = "BTC", toCurrency = "EUR") => {
-    superagent.get(
-      `http://localhost:8000/src/api/modules/crypto.php?from=${fromCurrency}&to=${toCurrency}`,
-      (error, res) => {
+    superagent
+      .get(
+        `http://localhost:8000/src/api/modules/crypto.php?from=${fromCurrency}&to=${toCurrency}`
+      )
+      .end(function (error, res) {
         if (error) throw error;
 
         const data = JSON.parse(res.text);
@@ -133,8 +133,7 @@ function App() {
             ...messages,
           ];
         });
-      }
-    );
+      });
   };
 
   const login = () => {

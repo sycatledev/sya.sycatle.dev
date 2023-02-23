@@ -1,10 +1,14 @@
+import { useState } from "react";
+
 export default function Password({ setter }) {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <label for="password" class="flex flex-col space-y-2">
       <span class="text-lg font-semibold">Mot de passe</span>
       <span class="flex relative items-center">
         <svg
-          onclick="this.setAttribute('type', this.getAttribute('type') == 'password' ? 'text' : 'password')"
+          onClick={() => setShowPassword(!showPassword)}
           class="h-6 w-6 text-gray-500 dark:text-gray-400 hover:cursor-pointer absolute right-0 mr-2 p-1"
           fill="currentColor"
           viewBox="0 0 24 24"
@@ -19,7 +23,7 @@ export default function Password({ setter }) {
         <input
           required
           onChange={(e) => setter(e.target.value)}
-          type="password"
+          type={showPassword ? "text" : "password"}
           name="password"
           class="w-full rounded-lg shadow focus:border-b-2 border-[#6fb463] bg-white dark:bg-black p-2 outline-none"
         />

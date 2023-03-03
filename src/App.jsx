@@ -4,41 +4,13 @@ import Login from './components/Security/Login'
 import Navbar from './components/Navbar'
 import Menu from './components/Menu'
 import Footer from './components/Footer'
-import { login, logout } from './api/security'
+import { logout } from './api/security'
 
 function App () {
   const initialUser = { username: '', password: '' }
   const [user, setUser] = useState(initialUser)
-  const [isLogin, setIsLogin] = useState(false)
+  const [isLogin, setIsLogin] = useState(true)
   const [messages, setMessages] = useState([])
-
-  // Login
-  const handleLogin = () => {
-    login(user)
-      .end(function (error, res) {
-        // We process the data received
-
-        if (error) throw error
-
-        const data = JSON.parse(res.text) // The JSON data is converted into data that can be understood by Javascript
-        if (data.status == 200) {
-          // If the request has worked then
-
-          setUser(initialUser)
-          setIsLogin(true) // Removal of the modal
-
-          setMessages([
-            {
-              // Sending the initialized message
-              content: `Bonjour, ${data.user.username}. 👋🏻 Comment puis-je vous aider aujourd'hui?`,
-              classes: ['font-bold', 'text-xl', 'lg:text-2xl'],
-              background: false,
-              isQuestion: false
-            }
-          ])
-        }
-      })
-  }
 
   // Logout
   const handleLogout = () => {
@@ -55,7 +27,7 @@ function App () {
           setIsLogin(false) // Display of the modal
           setMessages([]) // The message table is made empty
         } else {
-          setMessages((messages) => {
+          setMessages(messages => {
             // Sending an error message
             return [
               {
@@ -79,7 +51,12 @@ function App () {
         <Messages username={user.username} messages={messages} />
         <Menu username={user.username} setMessages={setMessages} />
 
-        {isLogin || (<Login handleLogin={handleLogin} setUser={setUser}/>)}
+        {isLogin || (
+          <Login 
+            setIsLogin={setIsLogin}
+            setMessages={setMessages}
+            setUser={setUser} />
+        )}
       </main>
       <Footer />
     </div>

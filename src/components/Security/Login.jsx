@@ -1,8 +1,34 @@
 import Identifier from './Identifier'
 import Password from './Password'
 import logo from '../../assets/sya_logo.jpg'
+import { login } from '../../api/security'
 
-export default function Login ({ handleLogin, setUser }) {
+export default function Login ({ setIsLogin, setMessages, setUser }) {
+  const handleLogin = () => {
+    login(user)
+      .end(function (error, res) {
+        // We process the data received
+
+        if (error) throw error
+
+        const data = JSON.parse(res.text) // The JSON data is converted into data that can be understood by Javascript
+        if (data.status == 200) {
+          setUser(initialUser)
+          setIsLogin(true) // Removal of the modal
+
+          setMessages([
+            {
+              // Sending the initialized message
+              content: `Bonjour, ${data.user.username}. 👋🏻 Comment puis-je vous aider aujourd'hui?`,
+              classes: ['font-bold', 'text-xl', 'lg:text-2xl'],
+              background: false,
+              isQuestion: false
+            }
+          ])
+        }
+      })
+  }
+
   return (
     <div className='grid fixed top-0 left-0 w-full h-full bg-black/40 backdrop-blur-lg z-[9998] duration-200'>
       <div className='w-full h-full lg:h-full lg:min-h-fit lg:max-h-[33rem] lg:w-full lg:max-w-xl p-4 rounded shadow m-auto duration-500 items-center align-middle bg-zinc-50/90 dark:bg-zinc-900/70 backdrop-blur-lg'>

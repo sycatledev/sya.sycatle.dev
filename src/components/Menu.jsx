@@ -11,10 +11,9 @@ export default function Menu ({ username, setMessages }) {
 
         const data = JSON.parse(res.text) // The JSON data is converted into data that can be understood by Javascript
 
-        let message =
-            'Une erreur est survenue lors de la requête. Merci de ré-essayer.' // We define the error message
+        let message = 'Une erreur est survenue lors de la requête. Merci de ré-essayer.' // We define the error message
         let classes = ['text-red-500'] // We define the classes of the text
-        if (data.status == 200) {
+        if (Number(data.status) === 200) {
           // If the request has worked then
 
           const city = data.response.location.name // We get the city back
@@ -58,7 +57,7 @@ export default function Menu ({ username, setMessages }) {
         let message =
             'Une erreur est survenue lors de la requête. Merci de ré-essayer.' // We define the error message
         let classes = ['text-red-500'] // We define the classes of the text
-        if (data.status == 200) {
+        if (Number(data.status) === 200) {
           // If the request has worked then
 
           const text = data.response.quote_text // We retrieve the quote
@@ -102,7 +101,7 @@ export default function Menu ({ username, setMessages }) {
         let message =
             'Une erreur est survenue lors de la requête. Merci de ré-essayer.' // We define the error message
         let classes = ['text-red-500'] // We define the classes of the text
-        if (data.status == 200) {
+        if (Number(data.status) === 200) {
           // If the request has worked then
 
           message = `1${fromCurrency} vaut actuellement ${data.response[toCurrency]}${toCurrency}. 💸` // Sya's response is defined

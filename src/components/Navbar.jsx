@@ -6,15 +6,15 @@ export default function Navbar ({ setIsLogin, setMessages }) {
 
   // Change of theme
   const toggleTheme = () => {
-    const currentTheme = localStorage.theme === 'light' ? 'dark' : 'light' // The opposite of the current theme is selected
-    localStorage.theme = currentTheme // We save the choice
+    const currentTheme = window.localStorage.theme === 'light' ? 'dark' : 'light' // The opposite of the current theme is selected
+    window.localStorage.theme = currentTheme // We save the choice
 
     document.documentElement.classList.add(currentTheme) // The theme change is applied
     document.documentElement.classList.remove(
-      localStorage.theme === 'light' ? 'dark' : 'light'
+      window.localStorage.theme === 'light' ? 'dark' : 'light'
     ) // We delete the old theme
 
-    setIsBlackTheme(localStorage.theme !== 'light') // We change the icon of the theme
+    setIsBlackTheme(window.localStorage.theme !== 'light') // We change the icon of the theme
   }
 
   // Logout
@@ -26,7 +26,7 @@ export default function Navbar ({ setIsLogin, setMessages }) {
         if (error) throw error
 
         const data = JSON.parse(res.text) // The JSON data is converted into data that can be understood by Javascript
-        if (data.status == 200) {
+        if (Number(data.status) === 200) {
           // If the request has worked then
 
           setIsLogin(false) // Display of the modal

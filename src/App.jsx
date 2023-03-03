@@ -9,7 +9,7 @@ import { login, logout } from './api/security'
 function App () {
   const initialUser = { username: '', password: '' }
   const [user, setUser] = useState(initialUser)
-  const [isLogin, setIsLogin] = useState(true)
+  const [isLogin, setIsLogin] = useState(false)
   const [messages, setMessages] = useState([])
 
   // Login

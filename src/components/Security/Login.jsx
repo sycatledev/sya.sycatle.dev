@@ -45,8 +45,8 @@ export default function Login ({ user, setIsLogin, setMessages, setUser }) {
             <span className='text-[#6fb463]'>sycatle.dev</span>
           </p>
 
-          <Identifier setterUser={setUser} />
-          <Password setterUser={setUser} />
+          <Identifier setUser={setUser} />
+          <Password setUser={setUser} />
 
           <div className='flex flex-col-reverse lg:flex-row space-y-4 items-center lg:justify-between'>
             <a

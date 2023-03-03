@@ -1,6 +1,7 @@
 import { TypeAnimation } from 'react-type-animation'
+import logo from '../assets/sya_logo.jpg'
 
-export default function Messages ({ logo, messages, username }) {
+export default function Messages ({ messages, username }) {
   return (
     <div className='px-1 flex flex-col space-y-2'>
       {messages

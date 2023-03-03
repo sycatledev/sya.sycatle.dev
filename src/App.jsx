@@ -98,11 +98,7 @@ function App () {
         <Messages logo={logo} username={user.username} messages={messages} />
         <Menu username={user.username} setMessages={setMessages} />
 
-        {isLogin || (<Login
-          logo={logo}
-          setUser={setUser}
-          login={handleLogin}
-                     />)}
+        {isLogin || (<Login setUser={setUser}/>)}
       </main>
       <Footer />
     </div>

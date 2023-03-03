@@ -16,6 +16,6 @@ export const fetchQuotes = () => {
 export const fetchCryptos = (fromCurrency = 'BTC', toCurrency = 'EUR') => {
   return superagent // We send a get request without arguments to the api
     .get(
-            `${import.meta.env.VITE_API_URL}/modules/crypto.php?from=${fromCurrency}&to=${toCurrency}`
+        `${import.meta.env.VITE_API_URL}/modules/crypto.php?from=${fromCurrency}&to=${toCurrency}`
     )
 }

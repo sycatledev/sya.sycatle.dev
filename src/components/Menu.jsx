@@ -1,11 +1,10 @@
-import superagent from 'superagent'
 import Flickity from 'react-flickity-component'
+import { fetchCryptos, fetchQuotes, fetchWeather } from '../api/menu'
 
 export default function Menu ({ username, setMessages }) {
   // We get the weather
-  const fetchWeather = (fromCity = 'Le%20Mans') => {
-    superagent // We send a get request without arguments to the api
-      .get(`http://localhost:8000/src/api/modules/meteo.php?city=${fromCity}`)
+  const handleFetchWeather = () => {
+    fetchWeather()
       .end(function (error, res) {
         // We process the data received
         if (error) throw error
@@ -48,9 +47,8 @@ export default function Menu ({ username, setMessages }) {
   }
 
   // We get a quote
-  const fetchQuotes = () => {
-    superagent // We send a get request without arguments to the api
-      .get('http://localhost:8000/src/api/modules/quotes.php')
+  const handleFetchQuotes = () => {
+    fetchQuotes()
       .end(function (error, res) {
         // We process the data received
         if (error) throw error
@@ -93,11 +91,8 @@ export default function Menu ({ username, setMessages }) {
   }
 
   // Recovering information about a crypto-currency
-  const fetchCryptos = (fromCurrency = 'BTC', toCurrency = 'EUR') => {
-    superagent // We send a get request without arguments to the api
-      .get(
-            `http://localhost:8000/src/api/modules/crypto.php?from=${fromCurrency}&to=${toCurrency}`
-      )
+  const handleFetchCryptos = (fromCurrency = 'BTC', toCurrency = 'EUR') => {
+    fetchCryptos()
       .end(function (error, res) {
         // We process the data received
         if (error) throw error
@@ -152,19 +147,19 @@ export default function Menu ({ username, setMessages }) {
         static
       >
         <button
-          onClick={() => fetchWeather()}
+          onClick={handleFetchWeather}
           className='carousel-cell mx-1 border hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-full p-2 lg:p-3 duration-300'
         >
           Météo ☀️
         </button>
         <button
-          onClick={() => fetchQuotes()}
+          onClick={handleFetchQuotes}
           className='carousel-cell mx-1 border hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-full p-2 lg:p-3 duration-300'
         >
           Citations ✨
         </button>
         <button
-          onClick={() => fetchCryptos()}
+          onClick={handleFetchCryptos}
           className='carousel-cell mx-1 border hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-full p-2 lg:p-3 duration-300'
         >
           Cryptos 📈

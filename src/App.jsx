@@ -7,7 +7,7 @@ import Footer from './components/Footer'
 
 function App () {
   const [user, setUser] = useState({ username: '', password: '' })
-  const [isLogin, setIsLogin] = useState(true)
+  const [isLogin, setIsLogin] = useState(false)
   const [messages, setMessages] = useState([])
 
   return (

@@ -3,7 +3,7 @@ import Password from './Password'
 import logo from '../../assets/sya_logo.jpg'
 import { login } from '../../api/security'
 
-export default function Login ({ setIsLogin, setMessages, setUser }) {
+export default function Login ({ user, setIsLogin, setMessages, setUser }) {
   const handleLogin = () => {
     login(user)
       .end(function (error, res) {

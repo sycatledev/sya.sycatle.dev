@@ -18,7 +18,7 @@ function App () {
         <Menu username={user.username} setMessages={setMessages} />
 
         {isLogin || (
-          <Login setIsLogin={setIsLogin} setMessages={setMessages} setUser={setUser} />
+          <Login user={user} setIsLogin={setIsLogin} setMessages={setMessages} setUser={setUser} />
         )}
       </main>
       <Footer />

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import logo from './assets/sya_logo.jpg'
 import Messages from './components/Messages'
 import Login from './components/Security/Login'
 import Navbar from './components/Navbar'
@@ -10,7 +9,7 @@ import { login, logout } from './api/security'
 function App () {
   const initialUser = { username: '', password: '' }
   const [user, setUser] = useState(initialUser)
-  const [isLogin, setIsLogin] = useState(false)
+  const [isLogin, setIsLogin] = useState(true)
   const [messages, setMessages] = useState([])
   const [isBlackTheme, setIsBlackTheme] = useState(false)
 
@@ -92,13 +91,13 @@ function App () {
       <Navbar
         toggleTheme={toggleTheme}
         isBlackTheme={isBlackTheme}
-        logout={handleLogout}
+        handleLogout={handleLogout}
       />
       <main>
-        <Messages logo={logo} username={user.username} messages={messages} />
+        <Messages username={user.username} messages={messages} />
         <Menu username={user.username} setMessages={setMessages} />
 
-        {isLogin || (<Login setUser={setUser}/>)}
+        {isLogin || (<Login handleLogin={handleLogin} setUser={setUser}/>)}
       </main>
       <Footer />
     </div>

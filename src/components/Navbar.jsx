@@ -1,4 +1,4 @@
-export default function Navbar ({ toggleTheme, isBlackTheme, logout }) {
+export default function Navbar ({ toggleTheme, isBlackTheme, handleLogout }) {
   return (
     <header className='fixed top-0 left-0 font-semibold p-2 text-black backdrop-blur-lg bg-zinc-50/70 dark:bg-zinc-900/70 dark:text-white w-full duration-300 z-50'>
       <div className='flex max-w-7xl mx-auto p-2 items-center'>
@@ -59,7 +59,7 @@ export default function Navbar ({ toggleTheme, isBlackTheme, logout }) {
           </button>
           <button
             title='Se déconnecter'
-            onClick={() => logout()}
+            onClick={handleLogout}
             className='flex items-center border hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-full p-2 lg:p-3 duration-300 group'
           >
             <svg className='h-6 w-6' fill='currentColor' viewBox='0 0 24 24'>

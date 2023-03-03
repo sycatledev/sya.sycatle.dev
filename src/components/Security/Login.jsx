@@ -1,9 +1,8 @@
 import Identifier from './Identifier'
 import Password from './Password'
 import logo from '../../assets/sya_logo.jpg'
-import { login } from '../../api/security'
 
-export default function Login ({ setUser }) {
+export default function Login ({ handleLogin, setUser }) {
   return (
     <div className='grid fixed top-0 left-0 w-full h-full bg-black/40 backdrop-blur-lg z-[9998] duration-200'>
       <div className='w-full h-full lg:h-full lg:min-h-fit lg:max-h-[33rem] lg:w-full lg:max-w-xl p-4 rounded shadow m-auto duration-500 items-center align-middle bg-zinc-50/90 dark:bg-zinc-900/70 backdrop-blur-lg'>
@@ -31,7 +30,7 @@ export default function Login ({ setUser }) {
               Retourner sur sycatle.dev
             </a>
             <button
-              onClick={() => login()}
+              onClick={handleLogin}
               className='flex font-normal p-3 bg-[#6fb463] shadow hover:bg-[#4f8f44] lg:shadow-lg rounded'
             >
               Se connecter

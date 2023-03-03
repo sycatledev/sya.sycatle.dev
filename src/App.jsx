@@ -11,20 +11,6 @@ function App () {
   const [user, setUser] = useState(initialUser)
   const [isLogin, setIsLogin] = useState(true)
   const [messages, setMessages] = useState([])
-  const [isBlackTheme, setIsBlackTheme] = useState(false)
-
-  // Change of theme
-  const toggleTheme = () => {
-    const currentTheme = localStorage.theme === 'light' ? 'dark' : 'light' // The opposite of the current theme is selected
-    localStorage.theme = currentTheme // We save the choice
-
-    document.documentElement.classList.add(currentTheme) // The theme change is applied
-    document.documentElement.classList.remove(
-      localStorage.theme === 'light' ? 'dark' : 'light'
-    ) // We delete the old theme
-
-    setIsBlackTheme(localStorage.theme !== 'light') // We change the icon of the theme
-  }
 
   // Login
   const handleLogin = () => {
@@ -88,11 +74,7 @@ function App () {
 
   return (
     <div className='mx-auto mt-auto max-w-7xl py-16 space-y-8 text-xl'>
-      <Navbar
-        toggleTheme={toggleTheme}
-        isBlackTheme={isBlackTheme}
-        handleLogout={handleLogout}
-      />
+      <Navbar handleLogout={handleLogout} />
       <main>
         <Messages username={user.username} messages={messages} />
         <Menu username={user.username} setMessages={setMessages} />

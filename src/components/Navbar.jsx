@@ -1,4 +1,21 @@
-export default function Navbar ({ toggleTheme, isBlackTheme, handleLogout }) {
+import { useState } from "react"
+
+export default function Navbar ({ handleLogout }) {
+  const [isBlackTheme, setIsBlackTheme] = useState(true)
+
+  // Change of theme
+  const toggleTheme = () => {
+    const currentTheme = localStorage.theme === 'light' ? 'dark' : 'light' // The opposite of the current theme is selected
+    localStorage.theme = currentTheme // We save the choice
+
+    document.documentElement.classList.add(currentTheme) // The theme change is applied
+    document.documentElement.classList.remove(
+      localStorage.theme === 'light' ? 'dark' : 'light'
+    ) // We delete the old theme
+
+    setIsBlackTheme(localStorage.theme !== 'light') // We change the icon of the theme
+  }
+
   return (
     <header className='fixed top-0 left-0 font-semibold p-2 text-black backdrop-blur-lg bg-zinc-50/70 dark:bg-zinc-900/70 dark:text-white w-full duration-300 z-50'>
       <div className='flex max-w-7xl mx-auto p-2 items-center'>

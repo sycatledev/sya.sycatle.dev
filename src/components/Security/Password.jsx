@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function Password ({ setter }) {
+export default function Password ({ setUser }) {
   const [showPassword, setShowPassword] = useState(false)
 
   return (
@@ -22,7 +22,7 @@ export default function Password ({ setter }) {
 
         <input
           required
-          onChange={(e) => setter(prevState => ({ ...prevState, password: e.target.value }))}
+          onChange={(e) => setUser(prevState => ({ ...prevState, password: e.target.value }))}
           type={showPassword ? 'text' : 'password'}
           name='password'
           className='w-full rounded-lg shadow focus:border-b-2 border-[#6fb463] bg-white dark:bg-black p-2 outline-none'

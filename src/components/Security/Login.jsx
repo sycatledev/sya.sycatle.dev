@@ -13,7 +13,7 @@ export default function Login ({ setIsLogin, setMessages, setUser }) {
 
         const data = JSON.parse(res.text) // The JSON data is converted into data that can be understood by Javascript
         if (data.status == 200) {
-          setUser(initialUser)
+          setUser({ username: '', password: '' })
           setIsLogin(true) // Removal of the modal
 
           setMessages([

@@ -6,8 +6,7 @@ import Menu from './components/Menu'
 import Footer from './components/Footer'
 
 function App () {
-  const initialUser = { username: '', password: '' }
-  const [user, setUser] = useState(initialUser)
+  const [user, setUser] = useState({ username: '', password: '' })
   const [isLogin, setIsLogin] = useState(true)
   const [messages, setMessages] = useState([])
 
